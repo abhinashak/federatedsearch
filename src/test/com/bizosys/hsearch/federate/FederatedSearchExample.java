@@ -27,6 +27,8 @@ import java.util.Random;
 import org.apache.hadoop.thirdparty.guava.common.collect.HashMultimap;
 import org.apache.hadoop.thirdparty.guava.common.collect.Multimap;
 
+import com.bizosys.hsearch.federate.FederatedCombiner;
+import com.bizosys.hsearch.federate.IFederatedSource;
 import com.bizosys.hsearch.query.HQuery.HTerm;
 import com.bizosys.hsearch.query.HResult;
 import com.bizosys.hsearch.row.IRowId;
@@ -40,7 +42,7 @@ public class FederatedSearchExample extends FederatedCombiner {
 	public static void main(String[] args) throws Exception {
 		
 		FederatedSearchExample example = new FederatedSearchExample();
-		List<IRowId<?,?>> finalResult = example.combine("(fedQ1 NOT fedQ3)");
+		List<IRowId<?,?>> finalResult = example.combine("fedQ1 NOT fedQ3 OR fed1 AND (fed5 OR fed6) ");
 		
 		Multimap<String,String> mmm = HashMultimap.create();
 		for (IRowId<?,?> aRecord : finalResult) {
